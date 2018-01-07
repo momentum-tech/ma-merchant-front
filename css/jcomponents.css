@@ -1,0 +1,36 @@
+
+.table_block {
+	width:auto;
+	height:342px;
+	margin-left:20px;
+	margin-right:20px;
+	margin-top:35px;
+	font-size:13px;
+	color:666666;
+}
+
+.table_title_block {
+	height:65px;width:100%;float:left;border:solid 1px #dddddd
+}
+
+.table_title {
+	height:65px;width:auto;margin-left:5xp;margin-right:5px;line-height:65px;float:left;text-align:center;
+}
+
+
+.table_row_block_even {
+	height:45px;width:100%;float:left;border:solid 1px #dddddd;background:#f8f8f8;margin-top:-1px;
+}
+.table_row_block_odd {
+	height:45px;width:100%;float:left;border:solid 1px #dddddd;background:#ffffff;margin-top:-1px;
+}
+.table_row {
+	height:45px;width:14%;line-height:45px;float:left;text-align:center;
+}
+
+.table_row_btn {
+	color:#0080cb;text-align:center;cursor:pointer;float:left;
+}
+.table_row_btn_sep {
+	height:60%;width:1px;background:#dddddd;margin-left:5px;margin-right:5px;float:left;margin-top:10px;
+}

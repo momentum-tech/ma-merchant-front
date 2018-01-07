@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"></meta>
+<title></title>
+<link rel="stylesheet" type="text/css" href="../css/login.css" ></link>
+
+<script type="text/javascript" src="http://121.199.38.132/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/jloading-0.0.1.js"></script>
+
+</head>
+<body class="body">
+	<div style="width:100%;height:30%;background:#fff;float:left;position:relative">
+		<div style="position:absolute;bottom:20px;padding:0px;margin:0px;width:70%;text-align:center;font-size:28px;color:#888">云南省涉旅商户认证平台</div>
+	</div>
+	<div style="width:100%;height:40%;background:#43adf0;float:left;">
+		<img src='../images/bg.png' style='height:116%;margin-left:20%;float:left;'></img>
+		<div style="background:url(../images/login_bg.png);background-size:100% 100%;float:left;width:300px;height:100%;margin-left:-15%;margin-top:5%;">
+			<div style="width:78%;height:45px;margin:0 auto;">
+				<div style="width:50%;height:45px;line-height:45px;font-size:14px;float:left;text-align:center;color:#43adf0;cursor:pointer;">账户登录</div>
+				<div style="width:50%;height:45px;line-height:45px;font-size:14px;float:left;text-align:center;">扫描登录</div>
+			</div>
+			
+			<div style="width:68%;height:35px;margin:0 auto;margin-top:30px;border:#888 solid 1px;border-radius:5px;">
+				<div style="width:20%;height:35px;background:url(../images/user_ico.png) no-repeat;background-size:20px 20px;background-position:center;float:left;"></div>
+				<input type='text' placeholder="请输入登录用户名" id="userName" name="userName" style="width:70%;height:35px;line-height:35px;float:left;border:none;outline:none;"></input>
+			</div>
+			
+			<div style="width:68%;height:35px;margin:0 auto;margin-top:10px;border:#888 solid 1px;border-radius:5px;">
+				<div style="width:20%;height:35px;background:url(../images/pw_ico.png) no-repeat;background-size:20px 20px;background-position:center;float:left;"></div>
+				<input type='password' placeholder="请输入密码" id="userName" name="userName" style="width:70%;height:35px;line-height:35px;float:left;border:none;outline:none;"></input>
+			</div>
+
+			<div style="width:68%;height:35px;line-height:35px;margin:0 auto;margin-top:10px;background:#43adf0;border-radius:5px;color:#fff;text-align:center;">登&nbsp&nbsp&nbsp录
+			</div>
+		</div>
+	</div>
+	
+	
+	<div style="height:30%;width:100%;float:left;font-size:13px;color:#666666;position:relative">
+		<div style="position:absolute;bottom:7px;padding:0px;margin:0px;width:100%;text-align:center;">Copyright © 2018 云南动量科技. 保留所有权利。</div>
+	</div>
+
+<script>
+var jLoading = new JLoading();
+
+function doLogin() {
+	var userTel = document.getElementById("userTel").value;
+	var userPwd = document.getElementById("userPwd").value;
+
+	if (userTel == '') {
+		alert("请输入您的手机号");
+		return;
+	}
+
+	if (userPwd == '') {
+		alert("请输入您登陆的密码");
+		return;
+	}
+	jLoading.showLoading();
+	
+	var url = getSvrAddress() + "doLogin4M.action?"
+	url += "userTel=" + userTel + "&userPwd=" + userPwd;
+	
+	$.ajax({
+		type : "GET",
+		url : url,
+		dataType : "json",
+		success : function(data) {
+			jLoading.hideLoading();
+			if (data && data.isSuccess) {
+				if(localStorage) {
+					localStorage.setItem("easepay-front.M", JSON.stringify(data.rtnObj));
+					location.href = "view/merchantMgmt/main.html";
+				} else {
+					alert("您的浏览器无法支持,请下载IE8以上版本的浏览器");
+				}
+			} else {
+				alert(data.message);
+			}
+		}
+	});
+}
+</script>
+</body>
+</html>
