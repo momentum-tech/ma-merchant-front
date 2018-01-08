@@ -67,8 +67,6 @@ function doLogin() {
 	var url = getCommonSvrAddress() + "doLogin.action?"
 	url += "userTel=" + userTel + "&userPwd=" + userPwd;
 	
-	alert(url);
-	
 	$.ajax({
 		type : "GET",
 		url : url,

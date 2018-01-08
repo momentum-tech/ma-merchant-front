@@ -24,8 +24,8 @@ function getTop(documentId) {
 }
 
 function processUserInfo(treeMenuInfo) {
-	var userInfoObj = getOperationUserInfo();
-	drawUserInfo("云南省涉旅商户认证平台", userInfoObj, treeMenuInfo, "main.html")
+	var userInfoObj = getUserInfo();
+	drawUserInfo("云南省涉旅商户认证平台", userInfoObj, treeMenuInfo, "login.html")
 }
 
 
