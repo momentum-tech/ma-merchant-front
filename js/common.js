@@ -23,16 +23,10 @@ function getTop(documentId) {
 	return document.getElementById(documentId).offsetTop;
 }
 
-function processBUserInfo(treeMenuInfo) {
+function processUserInfo(treeMenuInfo) {
 	var userInfoObj = getOperationUserInfo();
-	drawUserInfo("聚合支付     运管平台", userInfoObj, treeMenuInfo, "operationLogin.html")
+	drawUserInfo("云南省涉旅商户认证平台", userInfoObj, treeMenuInfo, "main.html")
 }
-
-function processMUserInfo(treeMenuInfo) {
-	var userInfoObj = getMerchantUserInfo();
-	drawUserInfo("聚合支付     商户平台", userInfoObj, treeMenuInfo, "merchantLogin.html")
-}
-
 
 
 function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
@@ -78,7 +72,7 @@ function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
 	}
 }
 function queryUserBaseInfo(treeNodeId, userInfoObj) {
-	var url = getSvrAddress() + "queryUserBaseInfo.action?";
+	var url = getCommonSvrAddress() + "queryUserBaseInfo.action?";
 	url += "&userId=" + userInfoObj.userId + "&treeNodeId=" + treeNodeId;
 	
 	$.ajax({
@@ -136,20 +130,16 @@ function assembleRightTitle(title) {
 }
 
 function getSvrAddress() {
-	return "http://124.207.111.79:5973/";
+	return "http://localhost:8080/";
 }
 
-function getMerchantUserInfo() {
-	if(localStorage) {
-		return JSON.parse(localStorage.getItem("easepay-front.M"));
-	} else {
-		alert("您的浏览器无法支持,请下载IE8以上版本的浏览器");
-	}
+function getCommonSvrAddress() {
+	return "http://121.199.38.132:8112/";
 }
 
-function getOperationUserInfo() {
+function getUserInfo() {
 	if(localStorage) {
-		return JSON.parse(localStorage.getItem("easepay-front.B"));
+		return JSON.parse(localStorage.getItem("ma-merchant.user"));
 	} else {
 		alert("您的浏览器无法支持,请下载IE8以上版本的浏览器");
 	}
