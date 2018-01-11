@@ -133,7 +133,7 @@ function assembleRightTitle(title) {
 }
 
 function getSvrAddress() {
-	return "http://localhost:8080/";
+	return "http://121.199.38.132:8113/";
 }
 
 function getCommonSvrAddress() {
@@ -247,7 +247,23 @@ function storeFileData(fileData) {
 }
 
 
-//form 值序列号
+//=======================================form 值序列号=======================================
+var serializeFormWithCheck = function(formId) {
+	var value = serializeForm(formId);
+	var records = value.split("&");
+	for(var i = 0; i < records.length; i ++) {
+		var record = records[i];
+		
+		var equalIdx = record.indexOf("=");
+		var id = record.substring(0, equalIdx);
+		
+		if(record.indexOf("=") == (record.length - 1)) {
+			alert("不能为空");
+			return;
+		}
+	}
+}
+
 var serializeForm = function (formId) {
 	var form = document.getElementById(formId);
 	var elements = new Array();

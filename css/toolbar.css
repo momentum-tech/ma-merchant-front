@@ -375,8 +375,8 @@
 .image_block {
 	position:fixed;
 }
-.image_div:after {
-	width:100%;float:left;border:0;content:url(../js/images/bg_1.png);
+.image_div {
+	width:100%;float:left;border:none;background:url(../js/images/bg_1.png);
 }
 .image_label {
 	width:100%;float:left;cursor:pointer;border:0;

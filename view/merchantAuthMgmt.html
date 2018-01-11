@@ -14,6 +14,7 @@
 <script type="text/javascript" src="../js/jform-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/tree_menu.js"></script>
 <script type="text/javascript" src="../js/JAgreement.js"></script>
+<script type="text/javascript" src="../js/jpicture.lst-0.0.1.js"></script>
 </head>
 <body>
 <div id="userInfoBlock" class="title_block"></div>
@@ -55,7 +56,7 @@
 			<input id="industryCode" name="industryCode" class="text_input_label" style="width:50%"></input>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
-			<label class="label_1">法人身份证号:</label>
+			<label class="label_1">法人证件号:</label>
 			<input id="IDCardNo" name="IDCardNo" class="text_input_1" style="width:50%"></input>
 		</div>
 		
@@ -74,15 +75,15 @@
 		
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">身份证照片正面:</label>
-			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;"></label>
+			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardFront', '身份证照片正面', idCardFrontUrl)"></label>
 		</div>
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">身份证照片反面:</label>
-			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;"></label>
+			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardBack', '身份证照片反面', idCardBackUrl)"></label>
 		</div>
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">营业执照:</label>
-			<label style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;"></label>
+			<label style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('licenseNo', '营业执照', licenseNoUrl)"></label>
 		</div>
 		
 		<div style="width:100%;height:45px;float:left;">
@@ -107,10 +108,47 @@
 processUserInfo({level:0, treeNodeId:"merchantAuthMgmt"});
 var jLoading = new JLoading();
 var jAgreement = new JAgreement("jAgreement");
+var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
+var idCardFrontFullPath, idCardBackFullPath, licenseNoFullPath;
+
+var jPictureLst = new JPictureLst({id:"showPictureLst", uploadFile: function(pictureId, fileData) {
+	processFileSliceData({fileData: fileData
+	, showUploadingProgress: function(total, current) {jPictureLst.showUploadingProgress(pictureId, total, current)}
+	, uploadError: function() {jPictureLst.uploadError(pictureId)}
+	, uploadSuccess: function(relativeFilePath, fileFullPath) {
+		jPictureLst.uploadSuccess(pictureId);
+		if(pictureId == "idCardFront") {
+			idCardFrontUrl = relativeFilePath;
+			idCardFrontFullPath = fileFullPath;
+		} else if(pictureId == "idCardBack") {
+			idCardBackUrl = relativeFilePath;
+			idCardBackFullPath = fileFullPath;
+		} else if(pictureId == "licenseNo") {
+			licenseNoUrl = relativeFilePath;
+			licenseNoFullPath = fileFullPath;
+		}
+	}});
+}});
+
+function showImageFile(imageId, imageName, imageUrl) {
+	jPictureLst.showPictureLst({entityId: getUserInfo().recId, pictureLst: [{id: imageId, url:imageUrl, name:imageName}]});
+}
+
 
 function doMerchantAuth() {
 	jAgreement.showAgreement({agree: function() {
-		var merchanteData = serializeForm("merchantAuthInfo");
+		var merchanteData = serializeFormWithCheck("merchantAuthInfo");
+		merchanteData += "&idCardFrontUrl=" + idCardFrontUrl;
+		merchanteData += "&idCardFrontFullPath=" + idCardFrontFullPath;
+		merchanteData += "&idCardBackUrl=" + idCardBackUrl;
+		merchanteData += "&idCardBackFullPath=" + idCardBackFullPath;
+		merchanteData += "&licenseNoUrl=" + licenseNoUrl;
+		merchanteData += "&licenseNoFullPath=" + licenseNoFullPath;
+		
+		alert(merchanteData);
+		
+		return;
+		
 		jLoading.showLoading();
 		$.ajax({
 			type: "POST",
