@@ -15,6 +15,10 @@
 <script type="text/javascript" src="../js/tree_menu.js"></script>
 <script type="text/javascript" src="../js/JAgreement.js"></script>
 <script type="text/javascript" src="../js/jpicture.lst-0.0.1.js"></script>
+<script type="text/javascript" src="../js/jnon.blank.checker.js"></script>
+<script type="text/javascript" src="../js/jarea.tree.js"></script>
+<script type="text/javascript" src="../js/jtree-0.0.1.js"></script>
+
 </head>
 <body>
 <div id="userInfoBlock" class="title_block"></div>
@@ -39,7 +43,7 @@
 		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">归属区域:</label>
-			<input id="areaCode" name="areaCode" class="text_input_label" style="width:50%" readonly></input>
+			<div id="areaCodeDiv" class="select_lst_text_div" style="width:50%;" ></div>
 		</div>
 		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
 			需与当地政府颁发的商业许可证或营业执照上的归属区域一致，归属区域不可修改
@@ -108,6 +112,11 @@
 processUserInfo({level:0, treeNodeId:"merchantAuthMgmt"});
 var jLoading = new JLoading();
 var jAgreement = new JAgreement("jAgreement");
+var jNonBlankChecker = new JNonBlankChecker();
+var instInput = new JInput({id:"areaCodeDiv", customFunction:showAreaTreeDailog});
+var areaTree = new AreaTree({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
+areaTree.createAreaTree();
+
 var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
 var idCardFrontFullPath, idCardBackFullPath, licenseNoFullPath;
 
@@ -133,6 +142,13 @@ var jPictureLst = new JPictureLst({id:"showPictureLst", uploadFile: function(pic
 function showImageFile(imageId, imageName, imageUrl) {
 	jPictureLst.showPictureLst({entityId: getUserInfo().recId, pictureLst: [{id: imageId, url:imageUrl, name:imageName}]});
 }
+function showAreaTreeDailog() {
+	areaTree.showAreaTree();
+}
+function areaTreeSelected() {
+	
+}
+
 
 
 function doMerchantAuth() {
@@ -144,10 +160,6 @@ function doMerchantAuth() {
 		merchanteData += "&idCardBackFullPath=" + idCardBackFullPath;
 		merchanteData += "&licenseNoUrl=" + licenseNoUrl;
 		merchanteData += "&licenseNoFullPath=" + licenseNoFullPath;
-		
-		alert(merchanteData);
-		
-		return;
 		
 		jLoading.showLoading();
 		$.ajax({

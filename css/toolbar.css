@@ -443,4 +443,20 @@
 
 
 
+.non_blank_block {
+	width:100px;height:100px;position:fixed;cursor:pointer;
+}
+.non_blank_info {
+	float:left;height:20px;line-Height:20px;color:#f0434b;font-size:13px;text-align:left;margin-left:5px;
+}
+.non_blank_image {
+	background:url(../js/images/tilde.png) repeat-x;background-size:4px 2px;float:left;width:100%;height:2px;margin-top:2px;
+}
+.non_blank_alarm_image_block {
+	width:14px;height:14px;border-radius:7px;background:#ff2009;float:right;margin-right:-16px;
+}
+.non_blank_alarm_image {
+	background:url(../js/images/error.png) no-repeat;background-size:10px 10px;width:14px;height:14px;background-position:center;
+}
+
 
