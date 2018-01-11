@@ -72,7 +72,7 @@ function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
 	}
 }
 function queryUserBaseInfo(treeNodeId, userInfoObj) {
-	var url = getCommonSvrAddress() + "queryUserBaseInfo.action?";
+	var url = getSvrAddress() + "queryUserBaseInfo.action?";
 	url += "&userId=" + userInfoObj.userId + "&treeNodeId=" + treeNodeId;
 	
 	$.ajax({
@@ -89,6 +89,9 @@ function queryUserBaseInfo(treeNodeId, userInfoObj) {
 					alert(data.message);
 				}
 			}
+		},
+		error: function() {
+			alert("查询用户基本信息失败，网络连接异常，请检查网络");
 		}
     });
 }
@@ -243,3 +246,68 @@ function storeFileData(fileData) {
 	return rtnMsg;
 }
 
+
+//form 值序列号
+var serializeForm = function (formId) {
+	var form = document.getElementById(formId);
+	var elements = new Array();
+	var tagElements = form.getElementsByTagName('input');
+	
+	for (var j = 0; j < tagElements.length; j++){
+		elements.push(tagElements[j]);
+	}
+	
+	var selectElements = form.getElementsByTagName('select');
+	for(var i = 0; i < selectElements.length; i++) {
+		elements.push(selectElements[i]);
+	}
+	
+	var queryComponents = new Array();
+	
+	for (var i = 0; i < elements.length; i++) {
+		var queryComponent = serializeElement(elements[i]);
+		if (queryComponent){
+			queryComponents.push(queryComponent);
+		}
+	}
+	
+	return queryComponents.join('&');  
+}
+
+var serializeElement = function(element) {    
+	var method = element.tagName.toLowerCase();
+	var parameter = input(element);
+
+	if (parameter) {
+		var key = encodeURIComponent(parameter[0]);
+		if (key.length == 0) return;
+
+		if (parameter[1].constructor != Array) {
+			parameter[1] = [parameter[1]];
+		}
+		
+		var values = parameter[1];
+		
+		var results = [];
+		for (var i=0; i<values.length; i++) {
+			results.push(key + '=' + encodeURIComponent(values[i]));
+		}
+		return results.join('&');
+	}
+}
+
+var input = function (element) {
+	switch (element.type.toLowerCase()) {
+		case 'submit':
+		case 'hidden':
+		case 'password':
+		case 'text':
+			return [element.id, element.value];
+		case 'checkbox':
+		case 'radio':
+			return inputSelector(element);
+		case 'select-one':
+			return selectSelector(element);
+	}
+	return false;
+}

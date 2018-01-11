@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="../css/tree_menu.css"/>
+<link rel="stylesheet" type="text/css" href="../css/main.css" />
+<link rel="stylesheet" type="text/css" href="../css/toolbar.css" />
+
+<script type="text/javascript" src="http://121.199.38.132/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/jpagelst-0.0.1.js"></script>
+<script type="text/javascript" src="../js/jloading-0.0.1.js"></script>
+<script type="text/javascript" src="../js/jselect.lst-0.0.1.js" charset="utf-8"></script>
+<script type="text/javascript" src="../js/jform-0.0.1.js" charset="utf-8"></script>
+<script type="text/javascript" src="../js/tree_menu.js"></script>
+</head>
+<body>
+<div id="userInfoBlock" class="title_block"></div>
+<img src="http://121.199.38.132/images/main/shadow.png" style="width:100%;height:5px;"/>
+
+<div style="margin:0 auto;width:95%;font-size:14px;">
+	<div id="treeMenu"  class="menu_tree_block"></div>
+	<div style="width:1px;background:#eeeeee;float:left;margin-top:10px;"></div>
+	
+	<div class="right_block">
+		<div id="rightTitleBlock" class="right_title_block"></div>
+		
+		<img id="progressImg" src="../images/step1.png" style="margin-top:20%;"></img>
+		</div>
+	</div>
+</div>
+<script>
+var jLoading = new JLoading();
+
+processUserInfo({level:0, treeNodeId:"merchantProgressMgmt"});
+
+function queryUserInfo() {
+	jLoading.showLoading();
+	var userInfoObj = getUserInfo();
+	
+	var url = getSvrAddress() + "queryUserInfo.action?userId=" + userInfoObj.userId;
+	
+	$.ajax({
+		type : "GET",
+		url : url,
+		dataType : "json",
+		success : function(data) {
+			jLoading.hideLoading();
+			if (data && data.isSuccess) {
+				var progressImg = document.getElementById("progressImg");
+				var authStatus = data.rtnObj.authStatus;
+				if(authStatus == "2") {
+					progressImg.src = "../images/step1.png";
+				} else if(authStatus == "4") {
+					progressImg.src = "../images/step2.png";
+				}
+			} else {
+				alert(data.message);
+			}
+		}
+	});
+}
+
+queryUserInfo();
+</script>
+</body>
+</html>

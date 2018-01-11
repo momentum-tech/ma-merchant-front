@@ -13,6 +13,7 @@
 <script type="text/javascript" src="../js/jselect.lst-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/jform-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/tree_menu.js"></script>
+<script type="text/javascript" src="../js/JAgreement.js"></script>
 </head>
 <body>
 <div id="userInfoBlock" class="title_block"></div>
@@ -25,9 +26,11 @@
 	<div class="right_block">
 		<div id="rightTitleBlock" class="right_title_block"></div>
 		
+		<form id="merchantAuthInfo">
+		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">企业名称:</label>
-			<input class="text_input_1" style="width:50%"></input>
+			<input id="cpyName" name="cpyName" class="text_input_1" style="width:50%"></input>
 		</div>
 		<div style="width:600px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
 			需与当地政府颁发的商业许可证或营业执照上的企业名称完全一致，信息审核成功后，企业名称不可修改
@@ -35,34 +38,34 @@
 		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">归属区域:</label>
-			<input class="text_input_label" style="width:50%" readonly></input>
+			<input id="areaCode" name="areaCode" class="text_input_label" style="width:50%" readonly></input>
 		</div>
 		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
 			需与当地政府颁发的商业许可证或营业执照上的归属区域一致，归属区域不可修改
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">营业执照号:</label>
-			<input class="text_input_1" style="width:50%"></input>
+			<input id="licenseNo" name="licenseNo" class="text_input_1" style="width:50%"></input>
 		</div>
 		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
 			请输入15位营业执照注册号或者18位统一社会信用号
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">所属行业:</label>
-			<input class="text_input_label" style="width:50%"></input>
+			<input id="industryCode" name="industryCode" class="text_input_label" style="width:50%"></input>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
-			<label class="label_1">身份证号:</label>
-			<input class="text_input_1" style="width:50%"></input>
+			<label class="label_1">法人身份证号:</label>
+			<input id="IDCardNo" name="IDCardNo" class="text_input_1" style="width:50%"></input>
 		</div>
 		
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1">姓名:</label>
-			<input class="text_input_1" style="width:70%"></input>
+			<input id="cpyLegalName" name="cpyLegalName" class="text_input_1" style="width:70%"></input>
 		</div>
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1">电话号码:</label>
-			<input class="text_input_1" style="width:70%"></input>
+			<input id="svrTel" name="svrTel" class="text_input_1" style="width:70%"></input>
 		</div>
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1">验证码:</label>
@@ -81,13 +84,51 @@
 			<label class="label_1" style="width:100px;text-align:center;">营业执照:</label>
 			<label style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;"></label>
 		</div>
-		<div style="clear:both;height:45px;"></div>
-		<div style="width:180px;;height:40px;margin:0 auto;background:#43adf0;line-height:40px;color:#fff;font-size:15px;border-radius:5px;">提交审核</div>
+		
+		<div style="width:100%;height:45px;float:left;">
+			<label class="label_1">开户行:</label>
+			<input class="text_input_1" style="width:50%"></input>
+		</div>
+		<div style="width:100%;height:45px;float:left;">
+			<label class="label_1">对公账户:</label>
+			<input id="clrAct" name="clrAct" class="text_input_1" style="width:50%"></input>
+		</div>
+		
+		</form>
+		
+		<div style="clear:both;"></div>
+		
+		<div style="width:180px;;height:40px;margin:0 auto;background:#43adf0;line-height:40px;color:#fff;font-size:15px;border-radius:5px;cursor:pointer;margin-top:20px;" onclick="doMerchantAuth()">提交审核</div>
+		
+		
 	</div>
 </div>
 <script>
 processUserInfo({level:0, treeNodeId:"merchantAuthMgmt"});
+var jLoading = new JLoading();
+var jAgreement = new JAgreement("jAgreement");
 
+function doMerchantAuth() {
+	jAgreement.showAgreement({agree: function() {
+		var merchanteData = serializeForm("merchantAuthInfo");
+		jLoading.showLoading();
+		$.ajax({
+			type: "POST",
+			url:getSvrAddress() + "createDetailInfo.action",
+			data:merchanteData,
+			dataType:"json",
+			success: function(data) {
+				jLoading.hideLoading();
+				if(data.isSuccess) {
+					alert("申请诚信商户成功");
+					//location.href = "merchantInfoMgmt.html";
+				} else {
+					alert(data.message);
+				}
+			}
+		});
+	}});
+}
 
 </script>
 </body>
