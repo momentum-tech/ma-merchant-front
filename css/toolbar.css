@@ -151,7 +151,7 @@
 	float:left;height:23px;line-height:23px;width:135px;cursor:pointer;text-align:left;margin-left:5px;
 }
 .custom_input_del_btn {
-	background:url(../js/images/close_gray.png) no-repeat;width:20px;height:20px;float:left;background-size:12px 12px;cursor:pointer;margin-top:7px;visibility:hidden;
+	background:url(../js/images/close_gray.png) no-repeat;width:20px;height:20px;float:right;background-size:12px 12px;cursor:pointer;margin-top:7px;visibility:hidden;
 }
 .select_lst_text_div {
 	margin-top:20px;float:left;margin-left:10px;height:25px;line-height:25px;width:160px;border-radius:3px;
@@ -460,3 +460,25 @@
 }
 
 
+
+.j_tree_item_block {
+	height:40px;width:100%;
+}
+.j_tree_item_loading_block {
+	height:40px;width:100%;
+}
+.j_tree_item_block:hover {
+	background:#cceefc;color:#19a2db;
+}
+.j_tree_item {
+	height:40px;width:80%;margin:0 auto;border-bottom:solid 1px #dddddd;cursor:pointer
+}
+.j_tree_item_image_sub {
+	background:url(../js/images/sub_3.png);background-size:10px 10px;float:left;
+}
+.j_tree_item_image_plus {
+	background:url(../js/images/plus_3.png);background-size:10px 10px;float:left;
+}
+.j_tree_item_image_loading {
+	background:url(../js/images/loading21.gif) no-repeat;background-size:18px 18px;float:left;margin-top:5px;
+}

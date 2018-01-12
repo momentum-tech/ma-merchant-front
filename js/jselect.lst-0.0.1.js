@@ -389,12 +389,16 @@ var JInput = function(input) {
 	
 	var inputDiv = document.getElementById(_id);
 	
+	var totalWidth = inputDiv.offsetWidth;
+	
 	var element = document.createElement("div");
 	element.className = "custom_input_block";
+	element.style.width = totalWidth + "px";
 	
 	var inputElement = document.createElement("div");
 	inputElement.className = "custom_input_text";
 	inputElement.id = _id + "_txt"
+	inputElement.style.width = (totalWidth - 20) + "px";
 	inputElement.onclick = function() {
 		_customFunction();
 	}

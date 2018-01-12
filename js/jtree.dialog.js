@@ -88,6 +88,12 @@ function JTreeDailog(data) {
 			loadTreeItem: function(idx) {
 				var treeItem = _areaTree.getTreeItem(idx);
 				if(treeItem) {
+					if(treeItem.level > 3) {
+						var itemLst = new Array();
+						_areaTree.finishLoading(idx, itemLst);
+						return;
+					}
+					
 					var url = getSvrAddress() + "getDivisionInfo.action?fNode=" + treeItem.id + "&level=" + treeItem.level;
 					
 					$.ajax({

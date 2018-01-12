@@ -8,9 +8,6 @@ function JTree(treeInfo) {
 	var _datas = treeInfo.datas;
 	var _selectedIdx = -1;
 	
-	
-	
-	
 	this.createTree = function() {
 		_treeItemArray = new Array();
 		
@@ -18,11 +15,11 @@ function JTree(treeInfo) {
 		
 		var treeItemLst = _datas.treeItemLst;
 		if(treeItemLst) {
-			var itemLevel = 0;
+			var itemLevel = 1;
 			info = this.assembleTreeItem(treeItemLst, itemLevel);
 		}
 		
-		info = "<div style='height:10px;width:100%;'></div>" + info;
+		info = info;
 		
 		document.getElementById(_treeId).innerHTML = info;
 		
@@ -112,19 +109,19 @@ function JTree(treeInfo) {
 			var isLoading = treeItem.isLoading;
 			
 			if(isLoading) {
-				info += "<div class='tree_item_loading_block'>"
+				info += "<div class='j_tree_item_loading_block'>"
 				info += "<div id='" + _treeId + "_" +  _treeItemArray.length + "' class=\"tree_item\">";
 			} else {
-				info += "<div class='tree_item_block'>"
+				info += "<div class='j_tree_item_block'>"
 				info += "<div id='" + _treeId + "_" +  _treeItemArray.length + "' class=\"tree_item\">";
 			}
 			
 			if(isExpansion) {
-				info += "<div class='tree_item_image_sub' style=\"margin-top:15px;float:left;width:10px;height:10px;margin-left:" + (itemLevel*30) + "px\"></div>";
+				info += "<div class='j_tree_item_image_sub' style=\"margin-top:15px;float:left;width:10px;height:10px;margin-left:" + (itemLevel*30) + "px\"></div>";
 			} else if(isLoading) {
-				info += "<div class='tree_item_image_loading' style=\"margin-top:10px;float:left;width:20px;height:20px;margin-left:" + (itemLevel*30) + "px\"></div>";
+				info += "<div class='j_tree_item_image_loading' style=\"margin-top:10px;float:left;width:20px;height:20px;margin-left:" + (itemLevel*30) + "px\"></div>";
 			} else {
-				info += "<div class='tree_item_image_plus' style=\"margin-top:15px;float:left;width:10px;height:10px;margin-left:" + (itemLevel*30) + "px\"></div>";
+				info += "<div class='j_tree_item_image_plus' style=\"margin-top:15px;float:left;width:10px;height:10px;margin-left:" + (itemLevel*30) + "px\"></div>";
 			}
 			
 			if(treeItem.isSelected) {

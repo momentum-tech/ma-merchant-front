@@ -43,7 +43,7 @@
 		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">归属区域:</label>
-			<div id="areaCodeDiv" class="select_lst_text_div" style="width:50%;" ></div>
+			<div id="areaCodeDiv" class="select_lst_text_div" style="width:50%;margin-left:5px;" ></div>
 		</div>
 		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
 			需与当地政府颁发的商业许可证或营业执照上的归属区域一致，归属区域不可修改
@@ -113,7 +113,7 @@ processUserInfo({level:0, treeNodeId:"merchantAuthMgmt"});
 var jLoading = new JLoading();
 var jAgreement = new JAgreement("jAgreement");
 var jNonBlankChecker = new JNonBlankChecker();
-var instInput = new JInput({id:"areaCodeDiv", customFunction:showAreaTreeDailog});
+var areaCodeInput = new JInput({id:"areaCodeDiv", customFunction:showAreaTreeDailog});
 var jTreeDailog = new JTreeDailog({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
 
 var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
@@ -144,8 +144,8 @@ function showImageFile(imageId, imageName, imageUrl) {
 function showAreaTreeDailog() {
 	jTreeDailog.showTreeDailog();
 }
-function areaTreeSelected() {
-	
+function areaTreeSelected(rtnObj) {
+	areaCodeInput.finishValueSelect({value:rtnObj.value, txt: rtnObj.txt});
 }
 
 
