@@ -13,10 +13,10 @@
 <script type="text/javascript" src="../js/jselect.lst-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/jform-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/tree_menu.js"></script>
-<script type="text/javascript" src="../js/JAgreement.js"></script>
+<script type="text/javascript" src="../js/jagreement.js"></script>
 <script type="text/javascript" src="../js/jpicture.lst-0.0.1.js"></script>
 <script type="text/javascript" src="../js/jnon.blank.checker.js"></script>
-<script type="text/javascript" src="../js/jarea.tree.js"></script>
+<script type="text/javascript" src="../js/jtree.dialog.js"></script>
 <script type="text/javascript" src="../js/jtree-0.0.1.js"></script>
 
 </head>
@@ -114,8 +114,7 @@ var jLoading = new JLoading();
 var jAgreement = new JAgreement("jAgreement");
 var jNonBlankChecker = new JNonBlankChecker();
 var instInput = new JInput({id:"areaCodeDiv", customFunction:showAreaTreeDailog});
-var areaTree = new AreaTree({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
-areaTree.createAreaTree();
+var jTreeDailog = new JTreeDailog({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
 
 var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
 var idCardFrontFullPath, idCardBackFullPath, licenseNoFullPath;
@@ -143,7 +142,7 @@ function showImageFile(imageId, imageName, imageUrl) {
 	jPictureLst.showPictureLst({entityId: getUserInfo().recId, pictureLst: [{id: imageId, url:imageUrl, name:imageName}]});
 }
 function showAreaTreeDailog() {
-	areaTree.showAreaTree();
+	jTreeDailog.showTreeDailog();
 }
 function areaTreeSelected() {
 	

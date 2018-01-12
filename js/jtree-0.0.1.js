@@ -1,4 +1,4 @@
-function JTree(treeInfo, datas) {
+function JTree(treeInfo) {
 	var _treeId = treeInfo.treeId;
 	var _jtree = this;
 	var _loadTreeItem = treeInfo.loadTreeItem;
@@ -7,6 +7,9 @@ function JTree(treeInfo, datas) {
 	var _isLoading = false;
 	var _datas = treeInfo.datas;
 	var _selectedIdx = -1;
+	
+	
+	
 	
 	this.createTree = function() {
 		_treeItemArray = new Array();
