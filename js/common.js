@@ -22,6 +22,13 @@ function getLeft(documentId) {
 function getTop(documentId) {
 	return document.getElementById(documentId).offsetTop;
 }
+function stopPropagation(e) {
+	if (e.stopPropagation) {
+		e.stopPropagation();
+	} else {
+		e.cancelBubble = true;
+	}
+}
 
 function processUserInfo(treeMenuInfo) {
 	var userInfoObj = getUserInfo();
@@ -61,16 +68,141 @@ function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
 		}
 		titleBlock.appendChild(quitBtn);
 		
+		
 		var roleInfoDiv = document.createElement("div");
 		roleInfoDiv.className = "role_info";
 		roleInfoDiv.id = "role_info";
 		titleBlock.appendChild(roleInfoDiv);
 		
+		
+		var todoBtn = document.createElement("div");
+		todoBtn.id = "user_todo_btn";
+		todoBtn.className = "todo_img";
+		todoBtn.onclick = function(e) {
+			showTodoDialog();
+			stopPropagation(e);
+		}
+		titleBlock.appendChild(todoBtn);
+		
+		var todoNum = document.createElement("div");
+		todoNum.className = "todo_num";
+		todoNum.id = "user_todo_num";
+		todoNum.innerHTML = "1";
+		todoBtn.appendChild(todoNum);
+		
+		
 		document.getElementById("userInfoBlock").appendChild(titleBlock);
+		
+		createMessageDialog();
 		
 		queryUserBaseInfo(_treeNodeId, userInfoObj);
 	}
 }
+
+//构建消息窗口
+function createMessageDialog() {
+	var body = document.body;
+	
+	var todoDialogBlock = document.createElement("div");
+	todoDialogBlock.className = "todo_dialog_block";
+	todoDialogBlock.id = "todo_dialog_block";
+	todoDialogBlock.style.display = "none";
+	body.appendChild(todoDialogBlock);
+	
+	var todoTipImg = document.createElement("div");
+	todoTipImg.className = "todo_dialog_img";
+	todoTipImg.id = "todoTipImg";
+	todoTipImg.style.display = "none";
+	body.appendChild(todoTipImg);
+	
+	var todoDialog = document.createElement("div");
+	todoDialog.className = "todo_dialog";
+	todoDialog.id = "todo_dialog";
+	todoDialogBlock.appendChild(todoDialog);
+	
+	var todoDialogTitle = document.createElement("div");
+	todoDialogTitle.className = "todo_dialog_title";
+	todoDialogTitle.innerHTML = "待办任务列表";
+	todoDialog.appendChild(todoDialogTitle);
+	
+	var todoDialogTitleLine = document.createElement("div");
+	todoDialogTitleLine.className = "todo_dialog_title_line";
+	todoDialog.appendChild(todoDialogTitleLine);
+	
+	var todoLstBlock = document.createElement("div");
+	todoLstBlock.className = "todo_lst_block";
+	todoLstBlock.id = "todoLstBlock"
+	todoDialog.appendChild(todoLstBlock);
+	
+	if(window.attachEvent) {
+		document.attachEvent('onclick',function(){
+			var todoDialogBlock = document.getElementById("todo_dialog_block");
+			todoDialogBlock.style.display = "none";
+			
+			var todoTipImg = document.getElementById("todoTipImg");
+			todoTipImg.style.display = "none";
+		});
+	} else {
+		document.addEventListener('click',function(){
+			var todoDialogBlock = document.getElementById("todo_dialog_block");
+			todoDialogBlock.style.display = "none";
+			
+			var todoTipImg = document.getElementById("todoTipImg");
+			todoTipImg.style.display = "none";
+		});
+	}
+}
+
+function showTodoDialog() {
+	var todoDialogBlock = document.getElementById("todo_dialog_block");
+	
+	var userTodoBtn = document.getElementById("user_todo_btn");
+	var top = userTodoBtn.offsetTop;
+	var left = userTodoBtn.offsetLeft;
+	
+	var dialogWidth = 300;
+	var dialogHeight = 400;
+	var dialogTop = top + 32;
+	var dialogLeft = left + 10 - dialogWidth/2;
+	
+	todoDialogBlock.style.width = dialogWidth + "px";
+	todoDialogBlock.style.height = dialogHeight + "px";
+	todoDialogBlock.style.top = dialogTop + "px";
+	todoDialogBlock.style.left = dialogLeft + "px";
+	todoDialogBlock.style.display = "inline";
+	
+	var todoTipImg = document.getElementById("todoTipImg");
+	todoTipImg.style.top = (dialogTop - 8) + "px";
+	todoTipImg.style.left = (left + 10 - 6) + "px";
+	todoTipImg.style.display = "inline";
+}
+function assembleTodoLst(data) {
+	if(data) {
+		var todoLstBlock = document.getElementById("todoLstBlock");
+		todoLstBlock.innerHTML = "";
+		
+		var size = Math.min(7, data.length);
+		for(var i = 0; i < size; i++) {
+			var todoRow = document.createElement("div");
+			todoRow.className = "todo_row_block";
+			todoRow.innerHTML = data[i];
+			
+			todoLstBlock.appendChild(todoRow);
+			
+			var todoRowLine = document.createElement("div");
+			todoRowLine.className = "todo_row_line";
+			todoLstBlock.appendChild(todoRowLine);
+		}
+	}
+}
+
+
+
+
+
+
+
+
 function queryUserBaseInfo(treeNodeId, userInfoObj) {
 	var url = getSvrAddress() + "queryUserBaseInfo.action?";
 	url += "&userId=" + userInfoObj.userId + "&treeNodeId=" + treeNodeId;
@@ -85,6 +217,7 @@ function queryUserBaseInfo(treeNodeId, userInfoObj) {
 					var title = createTreeMenu("treeMenu", data.rtnObj.menuInfo);
 					assembleRightTitle(title);
 					assembleRoleInfo(userInfoObj, data.rtnObj.roleInfo);
+					assembleTodoLst(["我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1"]);
 				} else {
 					alert(data.message);
 				}

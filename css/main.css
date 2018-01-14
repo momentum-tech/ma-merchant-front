@@ -158,15 +158,39 @@ ul, ol, li {
 }
 
 .quit_img {
-	width:20px;
-	height:20px;
-	float:right;
-	margin-right:30px;
-	margin-top:15px;
-	cursor:pointer;
-	background:url("../images/main/quit_btn.png");
-	background-size:20px 20px;
+	width:20px;height:20px;float:right;margin-right:30px;margin-top:15px;cursor:pointer;background:url("../images/main/quit_btn.png");background-size:20px 20px;
 }
+.todo_img {
+	width:22px;height:20px;float:right;margin-right:15px;margin-top:15px;cursor:pointer;background:url("../images/main/todo_btn.png");background-size:22px 20px;
+}
+.todo_num {
+	width:14px;height:14px;line-height:13px;cursor:pointer;border-radius:7px;background:#f06043;float:right;text-align:center;color:#fff;font-size:11px;
+}
+.todo_dialog_block {
+	position:absolute;
+}
+.todo_dialog {
+	width:298px;height:391px;border:#e7eaf1 1px solid;background:#fff;margin-top:-2px;
+}
+.todo_dialog_img {
+	position:absolute;width:14px;height:9px;background:url("../images/main/tip2.png") no-repeat;background-size:14px 9px;background-position:center;z-index:100;
+}
+.todo_dialog_title {
+	width:100%;height:55px;line-height:55px;color:#828282;text-align:center;font-size:14px;background:#f5f5f5;
+}
+.todo_dialog_title_line {
+	width:100%;height:1px;background:#ebeef5;
+}
+.todo_row_block {
+	width:100%;height:45px;line-height:45px;font-size:14px;text-align:center;cursor:pointer;
+}
+.todo_row_line {
+	width:90%;height:1px;background:#ebeef5;margin:0 auto;
+}
+.todo_lst_block {
+	width:100%;height:315px;
+}
+
 
 .role_info {
 	float:right;

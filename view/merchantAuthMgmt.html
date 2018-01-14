@@ -55,26 +55,26 @@
 		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
 			请输入15位营业执照注册号或者18位统一社会信用号
 		</div>
-		<div style="width:100%;height:45px;float:left;">
+		<div style="width:50%;;height:45px;float:left;">
 			<label class="label_1">所属行业:</label>
-			<input id="industryCode" name="industryCode" class="text_input_label" style="width:50%"></input>
+			<div id="industryCodeDiv" class="select_lst_text_div" style="width:50%;margin-left:5px;" ></div>
+		</div>
+		<div style="width:50%;;height:45px;float:left;">
+			<label class="label_1">所属类别:</label>
+			<div id="categoryCodeDiv" class="select_lst_text_div" style="width:50%;margin-left:5px;" ></div>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">法人证件号:</label>
 			<input id="IDCardNo" name="IDCardNo" class="text_input_1" style="width:50%"></input>
 		</div>
 		
-		<div style="width:30%;height:45px;float:left;">
+		<div style="width:50%;height:45px;float:left;">
 			<label class="label_1">姓名:</label>
 			<input id="cpyLegalName" name="cpyLegalName" class="text_input_1" style="width:70%"></input>
 		</div>
-		<div style="width:30%;height:45px;float:left;">
+		<div style="width:50%;height:45px;float:left;">
 			<label class="label_1">电话号码:</label>
 			<input id="svrTel" name="svrTel" class="text_input_1" style="width:70%"></input>
-		</div>
-		<div style="width:30%;height:45px;float:left;">
-			<label class="label_1">验证码:</label>
-			<input class="text_input_1" style="width:70%"></input>
 		</div>
 		
 		<div style="width:30%;height:45px;float:left;">
@@ -113,8 +113,17 @@ processUserInfo({level:0, treeNodeId:"merchantAuthMgmt"});
 var jLoading = new JLoading();
 var jAgreement = new JAgreement("jAgreement");
 var jNonBlankChecker = new JNonBlankChecker();
+
 var areaCodeInput = new JInput({id:"areaCodeDiv", customFunction:showAreaTreeDailog});
+var industryInput = new JInput({id:"industryCodeDiv", customFunction:function(){jSelectLstDialog.showSelectLst({title:"请选择商户所属行业", caller:"industryInput", loadingInfos:queryIndustyInfos})}, deleteFunction:function(){categoryInput.clearInput();}});
+var categoryInput = new JInput({id:"categoryCodeDiv", customFunction:function(){jSelectLstDialog.showSelectLst({title:"请选择商户所属类别", caller:"categoryInput", loadingInfos:queryCategoryInfos})}});
+
+var jSelectLstDialog = new JSelectLstDialog({id:"jselectLst", btnTxt:"确定", btnFunction:dialogSelected, isSimpleSelect:true});
+
+
 var jTreeDailog = new JTreeDailog({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
+
+
 
 var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
 var idCardFrontFullPath, idCardBackFullPath, licenseNoFullPath;
@@ -144,6 +153,10 @@ function showImageFile(imageId, imageName, imageUrl) {
 function showAreaTreeDailog() {
 	jTreeDailog.showTreeDailog();
 }
+function showIndustryCodeDailog() {
+	
+}
+
 function areaTreeSelected(rtnObj) {
 	areaCodeInput.finishValueSelect({value:rtnObj.value, txt: rtnObj.txt});
 }
@@ -177,6 +190,48 @@ function doMerchantAuth() {
 			}
 		});
 	}});
+}
+
+function queryIndustyInfos(page, rows) {
+	var data = "page=" + page + "&rows=" + rows;
+	var url = getSvrAddress() + "queryIndustyInfos.action?" + data;
+	$.ajax({
+		type: "GET",
+		url:url,
+		dataType:"json",
+		success: function(data) {
+			jSelectLstDialog.finishLoadLstInfo({titles:["行业名称", "行业编码"], records:data.rtnObj
+			, keys:["name", "code"], idKey:"code", txtKey:"name"});
+		}
+    });
+}
+function queryCategoryInfos(page, rows) {
+	var industryCode = industryInput.getJInputValue();
+	if(industryCode) {
+		var data = "page=" + page + "&rows=" + rows + "&industryCode=" + industryCode;
+		var url = getSvrAddress() + "queryCategoryInfos.action?" + data;
+		$.ajax({
+			type: "GET",
+			url:url,
+			dataType:"json",
+			success: function(data) {
+				jSelectLstDialog.finishLoadLstInfo({titles:["类别名称", "类别编码"], records:data.rtnObj
+				, keys:["name", "code"], idKey:"code", txtKey:"name"});
+			}
+		});
+	} else {
+		jSelectLstDialog.hideSelectLst();
+		alert("请先选择行业类别");
+	}
+}
+
+function dialogSelected(rtnObj) {
+	if(rtnObj.caller == "industryInput") {
+		industryInput.finishValueSelect(rtnObj);
+		categoryInput.clearInput();
+	} else if(rtnObj.caller == "categoryInput") {
+		categoryInput.finishValueSelect(rtnObj);
+	}
 }
 
 </script>
