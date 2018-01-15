@@ -1,4 +1,4 @@
-function JNonBlankChecker() {
+function JNonBlankChecker(objLst) {
 	var body = document.body;
 	
 	var nonBlankTipBlock = document.createElement("div");
@@ -28,24 +28,6 @@ function JNonBlankChecker() {
 	body.appendChild(nonBlankTipBlock);
 	
 	this.doCheck = function(value) {
-		var testObj = document.getElementById("cpyLegalName");
-		
-		var nonBlankTipBlock = document.getElementById("nonBlankTipBlock");
-		nonBlankTipBlock.style.display = "inline";
-		nonBlankTipBlock.style.left = testObj.offsetLeft + "px";
-		nonBlankTipBlock.style.width = testObj.offsetWidth + "px";
-		nonBlankTipBlock.style.top = testObj.offsetTop + "px";
-		
-		var targetHeight = testObj.offsetHeight;
-		
-		var nonBlankTipInfo = document.getElementById("nonBlankInfo");
-		nonBlankTipInfo.style.height = targetHeight + "px";
-		nonBlankTipInfo.style.lineHeight = targetHeight + "px";
-		
-		var nonBlankAlarmImageBlock = document.getElementById("nonBlankAlarmImageBlock");
-		nonBlankAlarmImageBlock.style.marginTop = ((targetHeight - 14)/2) + "px";
-		
-		/**
 		var records = value.split("&");
 		for(var i = 0; i < records.length; i ++) {
 			var record = records[i];
@@ -54,8 +36,26 @@ function JNonBlankChecker() {
 			var id = record.substring(0, equalIdx);
 			
 			if(record.indexOf("=") == (record.length - 1)) {
+				/**var targetObj = document.getElementById(id);
+		
+				var nonBlankTipBlock = document.getElementById("nonBlankTipBlock");
+				nonBlankTipBlock.style.display = "inline";
+				nonBlankTipBlock.style.left = targetObj.offsetLeft + "px";
+				nonBlankTipBlock.style.width = targetObj.offsetWidth + "px";
+				nonBlankTipBlock.style.top = targetObj.offsetTop + "px";
 				
+				var targetHeight = targetObj.offsetHeight;
+				
+				var nonBlankTipInfo = document.getElementById("nonBlankInfo");
+				nonBlankTipInfo.style.height = targetHeight + "px";
+				nonBlankTipInfo.style.lineHeight = targetHeight + "px";
+				
+				var nonBlankAlarmImageBlock = document.getElementById("nonBlankAlarmImageBlock");
+				nonBlankAlarmImageBlock.style.marginTop = ((targetHeight - 14)/2) + "px";*/
+				
+				alert();
+				break;
 			}
-		}*/
+		}
 	}
 }

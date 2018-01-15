@@ -165,25 +165,27 @@ function areaTreeSelected(rtnObj) {
 
 function doMerchantAuth() {
 	jAgreement.showAgreement({agree: function() {
-		var merchanteData = serializeFormWithCheck("merchantAuthInfo");
+		var merchanteData = serializeForm("merchantAuthInfo");
 		merchanteData += "&idCardFrontUrl=" + idCardFrontUrl;
 		merchanteData += "&idCardFrontFullPath=" + idCardFrontFullPath;
 		merchanteData += "&idCardBackUrl=" + idCardBackUrl;
 		merchanteData += "&idCardBackFullPath=" + idCardBackFullPath;
 		merchanteData += "&licenseNoUrl=" + licenseNoUrl;
 		merchanteData += "&licenseNoFullPath=" + licenseNoFullPath;
+		merchanteData += "&recId=" + getUserInfo().merchantId;
 		
 		jLoading.showLoading();
 		$.ajax({
 			type: "POST",
-			url:getSvrAddress() + "createDetailInfo.action",
+			//url:getSvrAddress() + "v1/merchantUser/merchantAuth.action",
+			url:"http://localhost:8080/v1/merchantUser/merchantAuth.action",
 			data:merchanteData,
 			dataType:"json",
 			success: function(data) {
 				jLoading.hideLoading();
 				if(data.isSuccess) {
 					alert("申请诚信商户成功");
-					//location.href = "merchantInfoMgmt.html";
+					location.href = "main.html";
 				} else {
 					alert(data.message);
 				}
