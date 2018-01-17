@@ -66,10 +66,7 @@ function doLogin() {
 	jLoading.showLoading();
 	
 	var url = getSvrAddress() + "v1/merchantUser/doLogin.action?"
-	//var url = "HTTP://localhost:8080/v1/merchant/login.action?"
 	url += "userTel=" + userTel + "&userPwd=" + userPwd;
-	
-	return;
 	
 	$.ajax({
 		type : "POST",
