@@ -1,3 +1,4 @@
+jQuery.support.cors = true;
 
 function gotoFront(documentId) {
 	document.getElementById(documentId).style.visibility = "visible";
