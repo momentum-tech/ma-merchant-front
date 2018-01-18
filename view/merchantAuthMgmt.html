@@ -79,15 +79,15 @@
 		
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">身份证照片正面:</label>
-			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardFront', '身份证照片正面', idCardFrontUrl)"></label>
+			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardFrontImage', '身份证照片正面', idCardFrontUrl)"></label>
 		</div>
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">身份证照片反面:</label>
-			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardBack', '身份证照片反面', idCardBackUrl)"></label>
+			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardBackImage', '身份证照片反面', idCardBackUrl)"></label>
 		</div>
 		<div style="width:30%;height:45px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">营业执照:</label>
-			<label style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('licenseNo', '营业执照', licenseNoUrl)"></label>
+			<label style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('licenseNoImage', '营业执照', licenseNoUrl)"></label>
 		</div>
 		
 		<div style="width:100%;height:45px;float:left;">
@@ -134,13 +134,13 @@ var jPictureLst = new JPictureLst({id:"showPictureLst", uploadFile: function(pic
 	, uploadError: function() {jPictureLst.uploadError(pictureId)}
 	, uploadSuccess: function(relativeFilePath, fileFullPath) {
 		jPictureLst.uploadSuccess(pictureId);
-		if(pictureId == "idCardFront") {
+		if(pictureId == "idCardFrontImage") {
 			idCardFrontUrl = relativeFilePath;
 			idCardFrontFullPath = fileFullPath;
-		} else if(pictureId == "idCardBack") {
+		} else if(pictureId == "idCardBackImage") {
 			idCardBackUrl = relativeFilePath;
 			idCardBackFullPath = fileFullPath;
-		} else if(pictureId == "licenseNo") {
+		} else if(pictureId == "licenseNoImage") {
 			licenseNoUrl = relativeFilePath;
 			licenseNoFullPath = fileFullPath;
 		}
