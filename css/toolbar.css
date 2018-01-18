@@ -1,7 +1,7 @@
 
 /**表单jfrom控件*/
 .form_block {
-	position:fixed;
+	position:fixed;z-index:1000;
 }
 .close_block {
 	cursor:pointer;position:relative;width:22px;height:22px;border-radius:11px;background:#eb7d60;float:right;margin-bottom:-12px;z-index:100;
@@ -16,7 +16,7 @@
 	height:45px;line-height:45px;margin-left:15px;font-size:13px;color:#333333;float:left;
 }
 .form_mask {
-	position:fixed;background:url(../js/images/bg_1.png) repeat;
+	position:fixed;background:url(../js/images/bg_1.png) repeat;z-index:100;
 }
 .form_close {
 	width:10px;height:10px;margin-top:6px;background:url(../js/images/close.png);background-size:10px 10px;margin-left:6px;
@@ -373,7 +373,7 @@
 
 
 .image_block {
-	position:fixed;
+	position:fixed;z-index:1001;
 }
 .image_div {
 	width:100%;float:left;border:none;background:url(../js/images/bg_1.png);
@@ -417,10 +417,10 @@
 
 
 .agreement_div {
-	position:fixed;background:#fff;
+	position:fixed;background:#fff;z-index:1000;
 }
 .agreement_close_block {
-	position:fixed;background:#eb7d60;width:22px;height:22px;border-radius:11px;cursor:pointer;
+	position:fixed;background:#eb7d60;width:22px;height:22px;border-radius:11px;cursor:pointer;z-index:1001;
 }
 .agreement_close {
 	background:url(../js/images/close.png) no-repeat;background-size:12px 12px;width:22px;height:22px;background-position:center;
@@ -443,20 +443,14 @@
 
 
 
-.non_blank_block {
-	width:100px;height:100px;position:fixed;cursor:pointer;
+.check_alarm_image_block {
+	width:14px;height:14px;border-radius:7px;background:#ff2009;margin-left:5px;position:absolute;
 }
-.non_blank_info {
-	float:left;height:20px;line-Height:20px;color:#f0434b;font-size:13px;text-align:left;margin-left:5px;
+.check_alarm_image {
+	background:url(../js/images/error.png) no-repeat;background-size:10px 10px;width:14px;height:14px;background-position:center;z-index:10;
 }
-.non_blank_image {
-	background:url(../js/images/tilde.png) repeat-x;background-size:4px 2px;float:left;width:100%;height:2px;margin-top:2px;
-}
-.non_blank_alarm_image_block {
-	width:14px;height:14px;border-radius:7px;background:#ff2009;float:right;margin-right:-16px;
-}
-.non_blank_alarm_image {
-	background:url(../js/images/error.png) no-repeat;background-size:10px 10px;width:14px;height:14px;background-position:center;
+.check_tip {
+	font-size:12px;color:#999999;text-align:left;width:120px;height:15px;line-Height:15px;position:absolute;
 }
 
 

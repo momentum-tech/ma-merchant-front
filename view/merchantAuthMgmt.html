@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../js/tree_menu.js"></script>
 <script type="text/javascript" src="../js/jagreement.js"></script>
 <script type="text/javascript" src="../js/jpicture.lst-0.0.1.js"></script>
-<script type="text/javascript" src="../js/jnon.blank.checker.js"></script>
+<script type="text/javascript" src="../js/jvalue.checker.js"></script>
 <script type="text/javascript" src="../js/jtree.dialog.js"></script>
 <script type="text/javascript" src="../js/jtree-0.0.1.js"></script>
 
@@ -33,68 +33,55 @@
 		
 		<form id="merchantAuthInfo">
 		
-		<div style="width:100%;height:45px;float:left;">
+		<div style="width:100%;height:60px;float:left;">
 			<label class="label_1">企业名称:</label>
-			<input id="cpyName" name="cpyName" class="text_input_1" style="width:50%"></input>
-		</div>
-		<div style="width:600px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
-			需与当地政府颁发的商业许可证或营业执照上的企业名称完全一致，信息审核成功后，企业名称不可修改
+			<input id="cpyName" name="cpyName" class="text_input_1" style="width:50%" placeholder="需与当地政府颁发的商业许可证或营业执照上的企业名称完全一致"></input>
 		</div>
 		
-		<div style="width:100%;height:45px;float:left;">
+		<div style="width:100%;height:60px;float:left;">
 			<label class="label_1">归属区域:</label>
 			<div id="areaCodeDiv" class="select_lst_text_div" style="width:50%;margin-left:5px;" ></div>
 		</div>
-		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
-			需与当地政府颁发的商业许可证或营业执照上的归属区域一致，归属区域不可修改
-		</div>
-		<div style="width:100%;height:45px;float:left;">
+		<div style="width:100%;height:60px;float:left;">
 			<label class="label_1">营业执照号:</label>
-			<input id="licenseNo" name="licenseNo" class="text_input_1" style="width:50%"></input>
+			<input id="licenseNo" name="licenseNo" class="text_input_1" style="width:50%" placeholder="请输入15位营业执照注册号或者18位统一社会信用号"/>
 		</div>
-		<div style="width:500px;height:20px;line-height:20px;float:left;font-size:13px;color:gray;margin-top:5px;text-align:left;padding-left:80px;">
-			请输入15位营业执照注册号或者18位统一社会信用号
-		</div>
-		<div style="width:50%;;height:45px;float:left;">
+		<div style="width:50%;;height:60px;float:left;">
 			<label class="label_1">所属行业:</label>
 			<div id="industryCodeDiv" class="select_lst_text_div" style="width:50%;margin-left:5px;" ></div>
 		</div>
-		<div style="width:50%;;height:45px;float:left;">
+		<div style="width:50%;;height:60px;float:left;">
 			<label class="label_1">所属类别:</label>
 			<div id="categoryCodeDiv" class="select_lst_text_div" style="width:50%;margin-left:5px;" ></div>
 		</div>
-		<div style="width:100%;height:45px;float:left;">
+		<div style="width:100%;height:60px;float:left;">
 			<label class="label_1">法人证件号:</label>
 			<input id="IDCardNo" name="IDCardNo" class="text_input_1" style="width:50%"></input>
 		</div>
 		
-		<div style="width:50%;height:45px;float:left;">
-			<label class="label_1">姓名:</label>
+		<div style="width:50%;height:60px;float:left;">
+			<label class="label_1">法人姓名:</label>
 			<input id="cpyLegalName" name="cpyLegalName" class="text_input_1" style="width:70%"></input>
 		</div>
-		<div style="width:50%;height:45px;float:left;">
-			<label class="label_1">电话号码:</label>
+		<div style="width:50%;height:60px;float:left;">
+			<label class="label_1">联系电话:</label>
 			<input id="svrTel" name="svrTel" class="text_input_1" style="width:70%"></input>
 		</div>
 		
-		<div style="width:30%;height:45px;float:left;">
+		<div style="width:30%;height:60px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">身份证照片正面:</label>
-			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardFrontImage', '身份证照片正面', idCardFrontUrl)"></label>
+			<label id="idCardFront" style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardFrontImage', '身份证照片正面', idCardFrontUrl)"></label>
 		</div>
-		<div style="width:30%;height:45px;float:left;">
+		<div style="width:30%;height:60px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">身份证照片反面:</label>
-			<label style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardBackImage', '身份证照片反面', idCardBackUrl)"></label>
+			<label id="idCardBack" style="background:url(../images/id_01.png);width:40px;height:40px;background-size:40px 40px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('idCardBackImage', '身份证照片反面', idCardBackUrl)"></label>
 		</div>
-		<div style="width:30%;height:45px;float:left;">
+		<div style="width:30%;height:60px;float:left;">
 			<label class="label_1" style="width:100px;text-align:center;">营业执照:</label>
-			<label style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('licenseNoImage', '营业执照', licenseNoUrl)"></label>
+			<label id="licenseNoAnchor" style="background:url(../images/id_02.png);width:35px;height:35px;background-size:35px 35px;float:left;margin-top:20px;cursor:pointer;" onclick="showImageFile('licenseNoImage', '营业执照', licenseNoUrl)"></label>
 		</div>
 		
-		<div style="width:100%;height:45px;float:left;">
-			<label class="label_1">开户行:</label>
-			<input class="text_input_1" style="width:50%"></input>
-		</div>
-		<div style="width:100%;height:45px;float:left;">
+		<div style="width:100%;height:65px;float:left;">
 			<label class="label_1">对公账户:</label>
 			<input id="clrAct" name="clrAct" class="text_input_1" style="width:50%"></input>
 		</div>
@@ -103,16 +90,14 @@
 		
 		<div style="clear:both;"></div>
 		
-		<div style="width:180px;;height:40px;margin:0 auto;background:#43adf0;line-height:40px;color:#fff;font-size:15px;border-radius:5px;cursor:pointer;margin-top:20px;" onclick="doMerchantAuth()">提交审核</div>
-		
-		
+		<div style="width:180px;;height:40px;margin:0 auto;background:#43adf0;line-height:40px;color:#fff;font-size:15px;border-radius:5px;cursor:pointer;margin-top:15px;" onclick="doMerchantAuth()">提交审核</div>
 	</div>
 </div>
 <script>
 processUserInfo({level:0, treeNodeId:"merchantAuthMgmt"});
 var jLoading = new JLoading();
 var jAgreement = new JAgreement("jAgreement");
-var jNonBlankChecker = new JNonBlankChecker();
+var jvalueChecker = new JValueChecker();
 
 var areaCodeInput = new JInput({id:"areaCodeDiv", customFunction:showAreaTreeDailog});
 var industryInput = new JInput({id:"industryCodeDiv", customFunction:function(){jSelectLstDialog.showSelectLst({title:"请选择商户所属行业", caller:"industryInput", loadingInfos:queryIndustyInfos})}, deleteFunction:function(){categoryInput.clearInput();}});
@@ -122,8 +107,6 @@ var jSelectLstDialog = new JSelectLstDialog({id:"jselectLst", btnTxt:"确定", b
 
 
 var jTreeDailog = new JTreeDailog({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
-
-
 
 var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
 var idCardFrontFullPath, idCardBackFullPath, licenseNoFullPath;
@@ -164,16 +147,39 @@ function areaTreeSelected(rtnObj) {
 
 
 function doMerchantAuth() {
+	jvalueChecker.clearChecker();
+
+	jvalueChecker.doCheck({tip:"企业名称不能为空", id: "cpyName", value: document.getElementById("cpyName").value});
+	jvalueChecker.doCheck({tip:"归属区域不能为空", id: "areaCodeDiv", value: areaCodeInput.getJInputValue()});
+	jvalueChecker.doCheck({tip:"营业执照号不能为空", id: "licenseNo", value: document.getElementById("licenseNo").value});
+	jvalueChecker.doCheck({tip:"所属行业不能为空", id: "industryCodeDiv", value: industryInput.getJInputValue()});
+	jvalueChecker.doCheck({tip:"所属类别不能为空", id: "categoryCodeDiv", value: categoryInput.getJInputValue()});
+	jvalueChecker.doCheck({tip:"法人证件号不能为空", id: "IDCardNo", value: document.getElementById("IDCardNo").value});
+	jvalueChecker.doCheck({tip:"法人姓名不能为空", id: "cpyLegalName", value: document.getElementById("cpyLegalName").value});
+	jvalueChecker.doCheck({tip:"联系电话不能为空", id: "svrTel", value: document.getElementById("svrTel").value});
+	jvalueChecker.doCheck({tip:"身份证照片不能为空", id: "idCardFront", value: idCardFrontUrl});
+	jvalueChecker.doCheck({tip:"身份证照片不能为空", id: "idCardBack", value: idCardBackUrl});
+	jvalueChecker.doCheck({tip:"营业执照不能为空", id: "licenseNoAnchor", value: licenseNoUrl});
+	jvalueChecker.doCheck({tip:"对公账户不能为空", id: "clrAct", value: document.getElementById("clrAct").value});
+	
+	if(!jvalueChecker.isCheckOK()) {
+		return;
+	}
+	
+	var merchanteData = serializeForm("merchantAuthInfo");
+	merchanteData += "&idCardFrontUrl=" + idCardFrontUrl;
+	merchanteData += "&idCardFrontFullPath=" + idCardFrontFullPath;
+	merchanteData += "&idCardBackUrl=" + idCardBackUrl;
+	merchanteData += "&idCardBackFullPath=" + idCardBackFullPath;
+	merchanteData += "&licenseNoUrl=" + licenseNoUrl;
+	merchanteData += "&licenseNoFullPath=" + licenseNoFullPath;
+	merchanteData += "&recId=" + getUserInfo().merchantId;
+	
+	merchanteData += "&areaCode=" + areaCodeInput.getJInputValue();
+	merchanteData += "&categoryCode=" + categoryInput.getJInputValue();
+	merchanteData += "&industryCode=" + industryInput.getJInputValue();
+
 	jAgreement.showAgreement({agree: function() {
-		var merchanteData = serializeForm("merchantAuthInfo");
-		merchanteData += "&idCardFrontUrl=" + idCardFrontUrl;
-		merchanteData += "&idCardFrontFullPath=" + idCardFrontFullPath;
-		merchanteData += "&idCardBackUrl=" + idCardBackUrl;
-		merchanteData += "&idCardBackFullPath=" + idCardBackFullPath;
-		merchanteData += "&licenseNoUrl=" + licenseNoUrl;
-		merchanteData += "&licenseNoFullPath=" + licenseNoFullPath;
-		merchanteData += "&recId=" + getUserInfo().merchantId;
-		
 		jLoading.showLoading();
 		$.ajax({
 			type: "POST",
@@ -196,14 +202,14 @@ function doMerchantAuth() {
 
 function queryIndustyInfos(page, rows) {
 	var data = "page=" + page + "&rows=" + rows;
-	var url = getSvrAddress() + "queryIndustyInfos.action?" + data;
+	var url = getSvrAddress() + "queryIndustryCodeLst.action?" + data;
 	$.ajax({
 		type: "GET",
 		url:url,
 		dataType:"json",
 		success: function(data) {
 			jSelectLstDialog.finishLoadLstInfo({titles:["行业名称", "行业编码"], records:data.rtnObj
-			, keys:["name", "code"], idKey:"code", txtKey:"name"});
+			, keys:["industry", "industry_code"], idKey:"industry_code", txtKey:"industry"});
 		}
     });
 }
@@ -211,14 +217,17 @@ function queryCategoryInfos(page, rows) {
 	var industryCode = industryInput.getJInputValue();
 	if(industryCode) {
 		var data = "page=" + page + "&rows=" + rows + "&industryCode=" + industryCode;
-		var url = getSvrAddress() + "queryCategoryInfos.action?" + data;
+		var url = getSvrAddress() + "queryCategoryCodeLst.action?" + data;
 		$.ajax({
 			type: "GET",
 			url:url,
 			dataType:"json",
 			success: function(data) {
 				jSelectLstDialog.finishLoadLstInfo({titles:["类别名称", "类别编码"], records:data.rtnObj
-				, keys:["name", "code"], idKey:"code", txtKey:"name"});
+				, keys:["category", "category_code"], idKey:"category_code", txtKey:"category"});
+			}, error :function(){
+				alert("查询异常，请稍后再试");
+				jSelectLstDialog.hideSelectLst();
 			}
 		});
 	} else {
