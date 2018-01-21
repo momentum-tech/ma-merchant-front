@@ -105,7 +105,6 @@ var categoryInput = new JInput({id:"categoryCodeDiv", customFunction:function(){
 
 var jSelectLstDialog = new JSelectLstDialog({id:"jselectLst", btnTxt:"确定", btnFunction:dialogSelected, isSimpleSelect:true});
 
-
 var jTreeDailog = new JTreeDailog({id:"areaTree", btnTxt:"确定", btnFunction:areaTreeSelected, rootLabel:"云南省", rootId:"53", rootLevel:2});
 
 var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
@@ -139,12 +138,9 @@ function showAreaTreeDailog() {
 function showIndustryCodeDailog() {
 	
 }
-
 function areaTreeSelected(rtnObj) {
 	areaCodeInput.finishValueSelect({value:rtnObj.value, txt: rtnObj.txt});
 }
-
-
 
 function doMerchantAuth() {
 	jvalueChecker.clearChecker();
@@ -179,6 +175,9 @@ function doMerchantAuth() {
 	merchanteData += "&categoryCode=" + categoryInput.getJInputValue();
 	merchanteData += "&industryCode=" + industryInput.getJInputValue();
 
+	alert(merchanteData);
+	return;
+	
 	jAgreement.showAgreement({agree: function() {
 		jLoading.showLoading();
 		$.ajax({

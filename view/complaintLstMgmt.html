@@ -28,7 +28,7 @@
 		</div>
 		
 		<div class="tab_bar_1">
-			<div class="button_1" onclick="queryMerchantInfos()" style="float:left;margin-left:18px;margin-top:20px;">查询</div>
+			<div class="button_1" onclick="queryEntityInfos()" style="float:left;margin-left:18px;margin-top:20px;">查询</div>
 		</div>
 		
 		<div id="entityInfoLst" class="table_block">
@@ -44,21 +44,18 @@
 processUserInfo({level:0, treeNodeId:"complaintLstMgmt"});
 
 var jLoading = new JLoading();
-
 var jSelectLstDialog = new JSelectLstDialog({id:"jselectLst", btnTxt:"确定"
 		, btnFunction:function(rtnObj){instInput.finishValueSelect(rtnObj)}, isSimpleSelect:true});
 
 var tableHeight = document.body.clientHeight - 55 - 52 - 65 - 50;
-var lstInfo = {
+var jlst = new JPageLst({
 	id : "entityInfoLst",
-	titles: ["商户名称", "所属机构", "企业法人", "服务电话", "认证状态"],
-	keys: ["cpy_name", "inst_name", "cpy_legal_name", "svr_tel", "com_stat"],
-	functionTitles:[],
+	titles: ["交易金额", "事件类型", "事件时间", "事件地点", "事件描述"],
+	keys: ["cpy_name", "inst_name", "date", "addr", "message"],
+	functionTitles:["查看详情"],
 	functions:[],
 	height:tableHeight,
-	loadingFunction:queryEntityInfos
-}
-var jlst = new JPageLst(lstInfo);
+	loadingFunction:loadEntityInfos});
 
 function queryEntityInfos() {
 	var pageInfo = jlst.getPagInfo();
@@ -66,32 +63,29 @@ function queryEntityInfos() {
 }
 
 function loadEntityInfos(page, rows) {
+	var url = getSvrAddress() + "v1/complaints/queryComplaintInfos.action?";
+	url += "merchId=" + getUserInfo().merchantId + "&page=" + page + "&rows=" + rows;
 	
+	alert(url);
+	
+	jLoading.showLoading();
+	$.ajax({
+		type: "GET",
+		url:url,
+		dataType:"json",
+		success: function(data) {
+			jLoading.hideLoading();
+			if(data.isSuccess) {
+				jlst.drawJPageLst(data.rtnObj);
+			} else {
+				alert(data.message);
+			}
+		},
+		error: function() {
+			alert("网络异常:请稍后再试");
+		}
+	});
 }
-
-
-var formData = {
-	id:"createMenuId",
-	formSize:8
-}
-var jForm = new JForm(formData);
-function showDetail(idx) {
-	var record = jlst.getJLstRowInfo(idx);
-
-	var createFormInfo = {
-		inputLst:[{label:"商户名称", type:"view", id:"cpyName", value: record.cpy_name}
-		, {label:"商户费率", type:"view", id:"rate", value: record.rate}
-		, {label:"企业法人", type:"view", id:"cpyLegalName", value: record.cpy_legal_name}
-		, {label:"经营地址", type:"view", id:"cpyAddress", value: record.cpy_address}
-		, {label:"企业简介", type:"view", id:"introduction", value: record.introduction}
-		, {label:"经营特长", type:"view", id:"special", value: record.special}
-		, {label:"联系人", type:"view", id:"linkman", value: record.linkman}
-		, {label:"服务电话", type:"view", id:"svrTel", value: record.svr_tel}],
-		title : "查看用户"
-	}
-	jForm.showForm(createFormInfo);
-}
-
 </script>
 </body>
 </html>

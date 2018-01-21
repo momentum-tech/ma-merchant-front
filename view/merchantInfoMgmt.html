@@ -13,6 +13,7 @@
 <script type="text/javascript" src="../js/jselect.lst-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/jform-0.0.1.js" charset="utf-8"></script>
 <script type="text/javascript" src="../js/tree_menu.js"></script>
+<script type="text/javascript" src="../js/jpicture.lst-0.0.1.js"></script>
 </head>
 <body>
 <div id="userInfoBlock" class="title_block"></div>
@@ -27,47 +28,114 @@
 		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">企业名称:</label>
-			<label id="" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;">测试企业名称</label>
+			<label id="cpy_name" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
 		</div>
 		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">归属区域:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;">测试归属区域</label>
+			<label id="area" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">营业执照号:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;">测试营业执照号</label>
-			<label class="label_1" style="width:120px;color:blue;text-align:left;margin-left:10px;cursor:pointer;">查看营业执照</label>
+			<label id="license_no" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
+			<label class="label_1" style="width:120px;color:blue;text-align:left;margin-left:10px;cursor:pointer;" onclick="showImageFile('licenseNoImage', '营业执照', licenseNoUrl)">查看营业执照</label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">所属行业:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;">测试所属行业</label>
+			<label id="industry" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
+		</div>
+		<div style="width:100%;height:45px;float:left;">
+			<label class="label_1">所属类别:</label>
+			<label id="category" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">身份证号:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;">测试所属行业</label>
-			<label class="label_1" style="width:120px;color:blue;text-align:left;margin-left:10px;cursor:pointer;">查看身份证图片正面</label>
-			<label class="label_1" style="width:120px;color:blue;text-align:left;margin-left:10px;cursor:pointer;">查看身份证图片反面</label>
+			<label id="ID_card_no" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
+			<label class="label_1" style="width:120px;color:blue;text-align:left;margin-left:10px;cursor:pointer;" onclick="showImageFile('idCardFrontImage', '身份证照片正面', idCardFrontUrl)">查看身份证图片正面</label>
+			<label class="label_1" style="width:120px;color:blue;text-align:left;margin-left:10px;cursor:pointer;" onclick="showImageFile('idCardBackImage', '身份证照片反面', idCardBackUrl)">查看身份证图片反面</label>
 		</div>
 		
 		<div style="width:100%;height:45px;float:left;">
-			<label class="label_1">姓名:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;">测试所属行业</label>
+			<label class="label_1">法人姓名:</label>
+			<label id="cpy_legal_name" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">电话号码:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;">测试所属行业</label>
+			<label id="svr_tel" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">对公账户名:</label>
-			<label class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;">测试对公账户</label>
+			<label id="clr_act" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
 		</div>
 	</div>
 </div>
 <script>
 processUserInfo({level:0, treeNodeId:"merchantInfoMgmt"});
+var jLoading = new JLoading();
+
+var idCardFrontUrl, idCardBackUrl, licenseNoUrl;
+
+var jPictureLst = new JPictureLst({id:"showPictureLst", uploadFile: function(pictureId, fileData) {
+	processFileSliceData({fileData: fileData
+	, showUploadingProgress: function(total, current) {jPictureLst.showUploadingProgress(pictureId, total, current)}
+	, uploadError: function() {jPictureLst.uploadError(pictureId)}
+	, uploadSuccess: function(relativeFilePath, fileFullPath) {
+		jPictureLst.uploadSuccess(pictureId);
+		if(pictureId == "idCardFrontImage") {
+			idCardFrontUrl = relativeFilePath;
+		} else if(pictureId == "idCardBackImage") {
+			idCardBackUrl = relativeFilePath;
+		} else if(pictureId == "licenseNoImage") {
+			licenseNoUrl = relativeFilePath;
+		}
+	}});
+}});
+
+function showImageFile(imageId, imageName, imageUrl) {
+	jPictureLst.showPictureLst({entityId: getUserInfo().recId, pictureLst: [{id: imageId, url:imageUrl, name:imageName}]});
+}
 
 
+function queryMerchantInfo() {
+	var url = getSvrAddress() + "/v1/merchants/queryMerchantInfo.action?";
+	url += "recId=" + getUserInfo().merchantId;
+	
+	jLoading.showLoading();
+	$.ajax({
+		type: "GET",
+		url:url,
+		dataType:"json",
+		success: function(data) {
+			jLoading.hideLoading();
+			if(data.isSuccess) {
+				assembleMerchantInfo(data.rtnObj);
+			} else {
+				alert(data.message);
+			}
+		},
+		error: function() {
+			alert("网络异常:请稍后再试");
+		}
+	});
+}
+
+function assembleMerchantInfo(data) {
+	document.getElementById("cpy_name").innerHTML = data.cpy_name;
+	document.getElementById("industry").innerHTML = data.industry;
+	document.getElementById("area").innerHTML = data.area;
+	document.getElementById("category").innerHTML = data.category;
+	document.getElementById("cpy_legal_name").innerHTML = data.cpy_legal_name;
+	document.getElementById("clr_act").innerHTML = data.clr_act;
+	document.getElementById("svr_tel").innerHTML = data.svr_tel;
+	document.getElementById("ID_card_no").innerHTML = data.ID_card_no;
+	document.getElementById("license_no").innerHTML = data.license_no;
+	
+	idCardFrontUrl = idCardFrontUrl;
+	idCardBackUrl = idCardBackUrl;
+	licenseNoUrl = licenseNoUrl;
+}
+
+queryMerchantInfo();
 </script>
 </body>
 </html>

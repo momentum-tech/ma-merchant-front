@@ -33,11 +33,11 @@ function stopPropagation(e) {
 
 function processUserInfo(treeMenuInfo) {
 	var userInfoObj = getUserInfo();
-	drawUserInfo("云南省涉旅商户认证平台", userInfoObj, treeMenuInfo, "login.html")
+	drawUserInfo("云南省涉旅商户认证平台", userInfoObj, treeMenuInfo, "login.html", "main.html")
 }
 
 
-function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
+function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage, mainPage) {
 	var _level = treeMenuInfo.level;
 	var _treeNodeId = treeMenuInfo.treeNodeId;
 	
@@ -69,7 +69,6 @@ function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
 		}
 		titleBlock.appendChild(quitBtn);
 		
-		
 		var roleInfoDiv = document.createElement("div");
 		roleInfoDiv.className = "role_info";
 		roleInfoDiv.id = "role_info";
@@ -96,7 +95,7 @@ function drawUserInfo(title, userInfoObj, treeMenuInfo, loginPage) {
 		
 		createMessageDialog();
 		
-		queryUserBaseInfo(_treeNodeId, userInfoObj);
+		queryUserBaseInfo(_treeNodeId, userInfoObj, levelInfo, mainPage);
 	}
 }
 
@@ -204,7 +203,7 @@ function assembleTodoLst(data) {
 
 
 
-function queryUserBaseInfo(treeNodeId, userInfoObj) {
+function queryUserBaseInfo(treeNodeId, userInfoObj, levelInfo, mainPage) {
 	var url = getSvrAddress() + "queryUserBaseInfo.action?";
 	url += "&userId=" + userInfoObj.userId + "&treeNodeId=" + treeNodeId;
 	
@@ -216,9 +215,13 @@ function queryUserBaseInfo(treeNodeId, userInfoObj) {
 			if(data) {
 				if (data.isSuccess) {
 					var title = createTreeMenu("treeMenu", data.rtnObj.menuInfo);
-					assembleRightTitle(title);
-					assembleRoleInfo(userInfoObj, data.rtnObj.roleInfo);
-					assembleTodoLst(["我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1"]);
+					if(title == "" && treeNodeId != "main") {
+						location.href = levelInfo + mainPage;
+					} else {
+						assembleRightTitle(title);
+						assembleRoleInfo(userInfoObj, data.rtnObj.roleInfo);
+						assembleTodoLst(["我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1", "我是测试消息1，我是测试消息1"]);
+					}
 				} else {
 					alert(data.message);
 				}
