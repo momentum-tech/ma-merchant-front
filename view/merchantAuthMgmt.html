@@ -175,15 +175,11 @@ function doMerchantAuth() {
 	merchanteData += "&categoryCode=" + categoryInput.getJInputValue();
 	merchanteData += "&industryCode=" + industryInput.getJInputValue();
 
-	alert(merchanteData);
-	return;
-	
 	jAgreement.showAgreement({agree: function() {
 		jLoading.showLoading();
 		$.ajax({
 			type: "POST",
-			//url:getSvrAddress() + "v1/merchantUser/merchantAuth.action",
-			url:"http://localhost:8080/v1/merchantUser/merchantAuth.action",
+			url:getSvrAddress() + "v1/merchantUser/merchantAuth.action",
 			data:merchanteData,
 			dataType:"json",
 			success: function(data) {

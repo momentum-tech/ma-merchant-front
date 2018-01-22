@@ -293,16 +293,16 @@ function processFileSliceData(processObj) {
 	var _uploadSuccess = processObj.uploadSuccess;
 	var _uploadError = processObj.uploadError;
 	
-	var bufferSize = 100 * 1024;
 	var offsetIdx = 0;
 	var fileFullPath;
 	var relativeFilePath;
 	var rtnMsg;
 	
-	var uploadTimes = Math.ceil(_fileData.length / bufferSize);
+	//var uploadTimes = Math.ceil(_fileData.length / bufferSize);
 	
-	for(var i = 1; i <= uploadTimes; i ++) {
-		var endIdx = offsetIdx + bufferSize;
+	var uploadInfo = getUploadTimes(_fileData.length);
+	for(var i = 1; i <= uploadInfo.uploadTimes; i ++) {
+		var endIdx = offsetIdx + uploadInfo.bufferSize;
 		
 		var data = _fileData.substring(offsetIdx, endIdx);
 		offsetIdx = endIdx;
@@ -310,14 +310,14 @@ function processFileSliceData(processObj) {
 		if(i == 1) {
 			rtnMsg = storeFileHead(data);
 		} else {
-			rtnMsg = storeFileData({data: data, fullFilePath: fileFullPath, relativeFilePath: relativeFilePath, isLast: i==uploadTimes});
+			rtnMsg = storeFileData({data: data, fullFilePath: fileFullPath, relativeFilePath: relativeFilePath, isLast: i==uploadInfo.uploadTimes});
 		}
 		
 		if(rtnMsg.isSuccess) {
 			fileFullPath = rtnMsg.fullFilePath;
 			relativeFilePath = rtnMsg.relativeFilePath;
 			
-			_showUploadingProgress(uploadTimes, i);
+			_showUploadingProgress(uploadInfo.uploadTimes, i);
 		} else {
 			break;
 		}
@@ -334,6 +334,23 @@ function processFileSliceData(processObj) {
 		alert("上传文件异常，请检查网络");
 		_uploadError();
 	}
+}
+
+function getUploadTimes(fileSize) {
+	var uploadTimes = 2;
+	
+	var bufferSize = 100 * 1024;
+	if(fileSize < 100 * 1024) {
+		uploadTimes = 2;
+	} else if(fileSize > 100 * 1024 && fileSize <= 500 * 1024) {
+		uploadTimes = 5;
+	} else if(fileSize > 500 * 1024 && fileSize <= 2000 * 1024) {
+		uploadTimes = 10;
+	} else {
+		uploadTimes = 20;
+	}
+	
+	return {uploadTimes: uploadTimes, bufferSize: fileSize/uploadTimes}
 }
 
 
