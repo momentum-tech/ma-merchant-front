@@ -1,6 +1,10 @@
 function JPictureLst(obj) {
 	var _id = obj.id;
 	var _uploadFile = obj.uploadFile;
+	var _isUpload = true;
+	if(obj.isUpload == false) {
+		_isUpload = false;
+	}
 	
 	var _entityId;
 	
@@ -41,7 +45,6 @@ function JPictureLst(obj) {
 		imageUploadProgress.style.height = (_imageHeight - interval) + 'px';
 	}
 	
-	
 	this.showPictureLst = function(showInfos) {
 		_entityId = showInfos.entityId;
 		_pictureLst = showInfos.pictureLst;
@@ -62,7 +65,7 @@ function JPictureLst(obj) {
 			var imageUrl = picture.url;
 			
 			if(imageUrl) {
-				document.getElementById(image.id + "_image").src = imageUrl;
+				document.getElementById(picture.id + "_image").src = imageUrl;
 			}
 		}
 	}
@@ -152,7 +155,10 @@ function JPictureLst(obj) {
 			imgLabelDiv.id = picture.id + "_label";
 			imgLabelDiv.className = "image_label";
 			imgLabelDiv.style.width = _width + "px";
-			imgLabelDiv.htmlFor = picture.id;
+			if(_isUpload) {
+				imgLabelDiv.htmlFor = picture.id;
+			}
+			
 			imgLabelDiv.style.marginTop = (0 - _imageHeight) + "px";
 			imgLabelDiv.style.height = (_height - 35) + "px";
 			imgBlockDiv.appendChild(imgLabelDiv);

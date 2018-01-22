@@ -89,10 +89,10 @@ var jPictureLst = new JPictureLst({id:"showPictureLst", uploadFile: function(pic
 			licenseNoUrl = relativeFilePath;
 		}
 	}});
-}});
+}, isUpload: false});
 
 function showImageFile(imageId, imageName, imageUrl) {
-	jPictureLst.showPictureLst({entityId: getUserInfo().recId, pictureLst: [{id: imageId, url:imageUrl, name:imageName}]});
+	jPictureLst.showPictureLst({entityId: "", pictureLst: [{id: imageId, url:imageUrl, name:imageName}]});
 }
 
 
@@ -130,9 +130,9 @@ function assembleMerchantInfo(data) {
 	document.getElementById("ID_card_no").innerHTML = data.ID_card_no;
 	document.getElementById("license_no").innerHTML = data.license_no;
 	
-	idCardFrontUrl = idCardFrontUrl;
-	idCardBackUrl = idCardBackUrl;
-	licenseNoUrl = licenseNoUrl;
+	idCardFrontUrl = data.idCardFrontUrl;
+	idCardBackUrl = data.idCardBackUrl;
+	licenseNoUrl = data.licenseNoUrl;
 }
 
 queryMerchantInfo();
