@@ -99,8 +99,7 @@ function showImageFile(imageId, imageName, imageUrl) {
 
 
 function queryMerchantInfo() {
-	//var url = getSvrAddress() + "/v1/merchants/queryMerchantInfo.action?";
-	var url = "http://localhost:8080/v1/merchants/queryMerchantInfo.action?";
+	var url = getSvrAddress() + "/v1/merchants/queryMerchantInfo.action?";
 	url += "recId=" + getUserInfo().merchantId;
 	
 	jLoading.showLoading();
