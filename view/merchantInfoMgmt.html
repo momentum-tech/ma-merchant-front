@@ -42,11 +42,9 @@
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">所属行业:</label>
-			<label id="industry" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
-		</div>
-		<div style="width:100%;height:45px;float:left;">
+			<label id="industry" class="label_1" style="width:200px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
 			<label class="label_1">所属类别:</label>
-			<label id="category" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
+			<label id="category" class="label_1" style="width:200px;color:#666666;text-align:left;margin-left:10px;cursor:pointer;"></label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">身份证号:</label>
@@ -57,15 +55,19 @@
 		
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">法人姓名:</label>
-			<label id="cpy_legal_name" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
-		</div>
-		<div style="width:100%;height:45px;float:left;">
+			<label id="cpy_legal_name" class="label_1" style="width:200px;color:#666666;text-align:left;margin-left:10px;"></label>
+			
 			<label class="label_1">电话号码:</label>
-			<label id="svr_tel" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
+			<label id="svr_tel" class="label_1" style="width:200px;color:#666666;text-align:left;margin-left:10px;"></label>
 		</div>
 		<div style="width:100%;height:45px;float:left;">
 			<label class="label_1">对公账户名:</label>
 			<label id="clr_act" class="label_1" style="width:300px;color:#666666;text-align:left;margin-left:10px;"></label>
+		</div>
+		
+		<div style="width:100%;height:200px;float:left;">
+			<label class="label_1">商户诚信码:</label>
+			<img id="merchantQRImage" style="float:left;margin-left:10px;height:220px;width:220px;"/>
 		</div>
 	</div>
 </div>
@@ -97,7 +99,8 @@ function showImageFile(imageId, imageName, imageUrl) {
 
 
 function queryMerchantInfo() {
-	var url = getSvrAddress() + "/v1/merchants/queryMerchantInfo.action?";
+	//var url = getSvrAddress() + "/v1/merchants/queryMerchantInfo.action?";
+	var url = "http://localhost:8080/v1/merchants/queryMerchantInfo.action?";
 	url += "recId=" + getUserInfo().merchantId;
 	
 	jLoading.showLoading();
@@ -129,6 +132,8 @@ function assembleMerchantInfo(data) {
 	document.getElementById("svr_tel").innerHTML = data.svr_tel;
 	document.getElementById("ID_card_no").innerHTML = data.ID_card_no;
 	document.getElementById("license_no").innerHTML = data.license_no;
+	
+	document.getElementById("merchantQRImage").src = data.merchantQRImage;
 	
 	idCardFrontUrl = data.idCardFrontUrl;
 	idCardBackUrl = data.idCardBackUrl;
